@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.saadahmedev.bdsmsgateway.SSLWireless;
+import com.saadahmedev.bdsmsgateway.gateways.SSLWireless;
 import com.saadahmedev.bdsmsgateway.interfaces.OnSmsSendListener;
 
 public class MainActivity extends AppCompatActivity {

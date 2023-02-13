@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.saadahmedev.bdsmsgateway;
+package com.saadahmedev.bdsmsgateway.gateways;
 
 import androidx.annotation.NonNull;
 
