@@ -23,11 +23,13 @@ import com.saadahmedev.bdsmsgateway.api.ApiCall;
 import com.saadahmedev.bdsmsgateway.api.RetrofitInstance;
 import com.saadahmedev.bdsmsgateway.interfaces.OnSmsSendListener;
 import com.saadahmedev.bdsmsgateway.utils.Constants;
+import com.saadahmedev.bdsmsgateway.utils.RandomString;
 
 public class SSLWireless {
 
     private static SSLWireless instance = null;
     private static JsonObject body;
+    private String customeMessageId = "";
 
     public static SSLWireless getInstance() {
         if (instance == null) instance = new SSLWireless();
@@ -59,11 +61,13 @@ public class SSLWireless {
     }
 
     public SSLWireless setCustomMessageId(String messageId) {
-        body.addProperty("csms_id", messageId);
+        this.customeMessageId = messageId;
         return this;
     }
 
     public void send(@NonNull OnSmsSendListener listener) {
+        body.addProperty("csms_id", customeMessageId.isEmpty() ? RandomString.getRandomString(16) : customeMessageId);
+
         ApiCall.enqueue(
                 RetrofitInstance.getInstance(Constants.SSL_WIRELESS_BASE_URL).sendSmsWirelessOtp(body),
                 listener,
