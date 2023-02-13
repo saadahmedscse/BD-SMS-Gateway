@@ -19,4 +19,5 @@ package com.saadahmedev.bdsmsgateway.utils;
 public class Constants {
 
     public static final String SSL_WIRELESS_BASE_URL = "https://smsplus.sslwireless.com/api/v3/";
+    public static final String SMSQ_GLOBAL_BASE_URL = "https://api.smsq.global/api/v2/";
 }
