@@ -69,7 +69,7 @@ public class SSLWireless {
         body.addProperty("csms_id", customeMessageId.isEmpty() ? RandomString.getRandomString(16) : customeMessageId);
 
         ApiCall.enqueue(
-                RetrofitInstance.getInstance(Constants.SSL_WIRELESS_BASE_URL).sendSmsWirelessOtp(body),
+                RetrofitInstance.getInstance(Constants.SSL_WIRELESS_BASE_URL).sendSmsWirelessMessage(body),
                 listener,
                 data -> {
                     if (data.getStatus().equals("SUCCESS")) {
