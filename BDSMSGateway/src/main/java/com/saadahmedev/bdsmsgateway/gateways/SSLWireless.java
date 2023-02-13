@@ -40,8 +40,8 @@ public class SSLWireless {
         return this;
     }
 
-    public SSLWireless setSID(String sid) {
-        body.addProperty("sid", sid);
+    public SSLWireless setSenderId(String senderId) {
+        body.addProperty("sid", senderId);
         return this;
     }
 
