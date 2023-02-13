@@ -19,15 +19,10 @@ package com.saadahmedev.bdsmsgateway;
 import androidx.annotation.NonNull;
 
 import com.google.gson.JsonObject;
+import com.saadahmedev.bdsmsgateway.api.ApiCall;
 import com.saadahmedev.bdsmsgateway.api.RetrofitInstance;
 import com.saadahmedev.bdsmsgateway.interfaces.OnSmsSendListener;
-import com.saadahmedev.bdsmsgateway.model.smsWireless.SmsWirelessMessageResponse;
 import com.saadahmedev.bdsmsgateway.utils.Constants;
-import com.saadahmedev.bdsmsgateway.utils.ConstructErrorBody;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SSLWireless {
 
@@ -50,7 +45,7 @@ public class SSLWireless {
         return this;
     }
 
-    public SSLWireless setPhone(String phone) {
+    public SSLWireless setPhone(@NonNull String phone) {
         if (phone.startsWith("+88")) phone = phone.substring(1);
         else if (phone.startsWith("01")) phone = "88" + phone;
 
@@ -69,27 +64,14 @@ public class SSLWireless {
     }
 
     public void send(@NonNull OnSmsSendListener listener) {
-        listener.onLoading();
-
-        RetrofitInstance.getInstance(Constants.SSL_WIRELESS_BASE_URL).sendSmsWirelessOtp(body).enqueue(new Callback<SmsWirelessMessageResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<SmsWirelessMessageResponse> call, @NonNull Response<SmsWirelessMessageResponse> response) {
-                if (response.code() == 200) {
-                    assert response.body() != null;
-                    if (response.body().getStatus().equals("SUCCESS")) {
+        ApiCall.enqueue(
+                RetrofitInstance.getInstance(Constants.SSL_WIRELESS_BASE_URL).sendSmsWirelessOtp(body),
+                listener,
+                data -> {
+                    if (data.getStatus().equals("SUCCESS")) {
                         listener.onSuccess();
-                    } else listener.onFailed(response.body().getErrorMessage());
-                } else {
-                    if (response.errorBody() != null) {
-                        listener.onFailed(ConstructErrorBody.getMessage(response.errorBody()));
-                    } else listener.onFailed("Unexpected Error Occurred");
+                    } else listener.onFailed(data.getErrorMessage());
                 }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<SmsWirelessMessageResponse> call, @NonNull Throwable t) {
-                listener.onFailed(t.getLocalizedMessage());
-            }
-        });
+        );
     }
 }
