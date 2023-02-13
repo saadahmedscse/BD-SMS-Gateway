@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.saadahmedev.bdsmsgateway.gateways.SSLWireless;
+import com.saadahmedev.bdsmsgateway.gateways.SmsQGlobal;
 import com.saadahmedev.bdsmsgateway.interfaces.OnSmsSendListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,12 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SSLWireless.getInstance()
-                .setApiToken("lu3htwwy-dzadvo6i-wevhole6-gjumi1fj-trejjdar")
-                .setSID("MSOBNON")
+        SmsQGlobal.getInstance()
+                .setClientId("196c9aa3-7cce-4c3d-b366-2cd5aef5272e")
+                .setApiKey("lYWiNQkhyMR4KwEYkn6jbLcEPeDdW9YHCPgjrNpI7/g=")
+                .setSenderId("TopSeba")
+                .isUnicode(true)
                 .setPhone("+8801794784643")
-                .setMessage("This is test message")
-                .setCustomMessageId("sldkflskf")
+                .setMessage("Hello")
                 .send(new OnSmsSendListener() {
                     @Override
                     public void onLoading() {
