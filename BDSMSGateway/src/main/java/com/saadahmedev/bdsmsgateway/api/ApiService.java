@@ -18,6 +18,7 @@ package com.saadahmedev.bdsmsgateway.api;
 
 import com.google.gson.JsonObject;
 import com.saadahmedev.bdsmsgateway.model.smsWireless.SmsWirelessMessageResponse;
+import com.saadahmedev.bdsmsgateway.model.smsqGlobal.SmsQGlobalMessageResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,5 +31,9 @@ public interface ApiService {
             "Accept: application/json"
     })
     @POST("send-sms")
-    Call<SmsWirelessMessageResponse> sendSmsWirelessOtp(@Body JsonObject body);
+    Call<SmsWirelessMessageResponse> sendSmsWirelessMessage(@Body JsonObject body);
+
+    @Headers("Content-Type: application/json")
+    @POST("SendSMS")
+    Call<SmsQGlobalMessageResponse> sendSmsqGlobalMessage(@Body JsonObject body);
 }
