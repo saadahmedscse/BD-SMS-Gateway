@@ -57,8 +57,9 @@ public class SmsQGlobal {
     }
 
     public SmsQGlobal setPhone(@NonNull String phone) {
-        if (phone.startsWith("+88")) phone = phone.substring(1);
-        else if (phone.startsWith("01")) phone = "88" + phone;
+        if (phone.startsWith("+88")) phone = phone.substring(4);
+        else if (phone.startsWith("01")) phone = phone.substring(1);
+        else if (phone.startsWith("88")) phone = phone.substring(3);
 
         body.addProperty("MobileNumbers", phone);
         return this;
